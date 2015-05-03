@@ -14,7 +14,7 @@ $usuarioController = new UsuarioController();
 
             <button type="button" class="btn btn-primary btn-sm col-md-offset-11" aria-label="Left Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <a href="http://www.globo.com" target="_blank" style="color: #ffffff; text-decoration: none"  >adicionar</a>
+                <a href="adicionar.php"  style="color: #ffffff; text-decoration: none"  >adicionar</a>
             </button><br><br>    
 
             <table class="table table-striped table-hover">
@@ -32,6 +32,9 @@ $usuarioController = new UsuarioController();
                         Status
                     </th>
                     <th>
+                        Tipo
+                    </th>
+                    <th>
                         Ações
                     </th>
                 </tr>
@@ -47,7 +50,10 @@ $usuarioController = new UsuarioController();
                             <?php } else { ?>        
                                 <span class="label label-danger"><?php echo $usuario->status; ?></span>
                             <?php } ?>
-                        </td>    
+                        </td>
+                        <td>
+                            <?php echo $usuario->tipo_descricao ?>
+                        </td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-info dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">

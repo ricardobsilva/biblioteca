@@ -61,13 +61,36 @@ class Usuario{
 
 
    function findAll(){
-     $sql = "SELECT * FROM usuario";
+     $sql = "SELECT user.* , tipo.descricao as tipo_descricao "
+             . "FROM usuario user INNER JOIN tipo_usuario tipo"
+             . " ON(user.tipo_id = tipo.id)";
      $query = Conexao::prepare($sql);
      $query->execute();
      return $query->fetchAll();
    }
    
+   function insert(){
+     $sql = "INSERT INTO usuario (descricao,email,senha,status,tipo_id) "
+             . "VALUES (:descricao, :email , :senha , :status, :tipo_id)" ; 
+     $query = Conexao::prepare($sql);
+     $query->bindValue(":descricao", $this->getDescricao());
+     $query->bindValue(":email", $this->getEmail());
+     $query->bindValue("senha", $this->getSenha());
+     $query->bindValue(":status", $this->getStatus());
+     $query->bindValue(":tipo_id", $this->getTipo_id());
+     $query->execute();
+     $id = $this->lastInsertId();
+     
+     echo $id->id;
+     
+   }
    
+   function lastInsertId(){
+       $sql = "SELECT id FROM usuario ORDER BY id DESC limit 1";
+       $query = Conexao::prepare($sql);
+       $query->execute();
+       return $query->fetch();
+   }
    
    
 }
