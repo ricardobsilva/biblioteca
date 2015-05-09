@@ -92,5 +92,28 @@ class Usuario{
        return $query->fetch();
    }
    
+   function find($id = null){
+       $sql = "SELECT user.* , tipo.descricao as tipo_descricao "
+             . "FROM usuario user INNER JOIN tipo_usuario tipo"
+             . " ON(user.tipo_id = tipo.id) where user.id = :id";
+       $query = Conexao::prepare($sql);
+       $query->bindValue(":id" , $id);
+       $query->execute();
+       return $query->fetch();
+   }
+   
+   function update($id = null){
+       $sql = "UPDATE usuario "
+               . "SET descricao = :descricao , email = :email , senha = :senha , status =:status , tipo_id = :tipo_id "
+               . "WHERE id = :id";
+        $query = Conexao::prepare($sql);
+        $query->bindValue(":descricao", $this->getDescricao());
+        $query->bindValue(":email", $this->getEmail());
+        $query->bindValue("senha", $this->getSenha());
+        $query->bindValue(":status", $this->getStatus());
+        $query->bindValue(":tipo_id", $this->getTipo_id());
+        $query->bindValue(":id" , $id);
+        $query->execute();  
+   }
    
 }
